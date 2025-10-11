@@ -22,4 +22,9 @@ export class StudentService {
     async getStudentById(id:string):Promise<Student | null>{
         return this.studentModel.findById(id).exec(); //exec will return a promise
     }
+
+    async updateStudent(id:string,data:Partial<Student>):
+    Promise<Student | null>{
+        return this.studentModel.findByIdAndUpdate(id,data,{new:true}).exec(); //new:true will return the updated document
+    }
 }
