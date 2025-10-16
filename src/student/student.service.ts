@@ -23,35 +23,24 @@ export class StudentService {
         return this.studentModel.findById(id).exec(); //exec will return a promise
     }
 
-    // async updateStudent(id:string,data:Partial<Student>):
-    // Promise<Student | null>{
-    //     // return this.studentModel.findByIdAndUpdate(id,data,{new:true}).exec(); //new:true will return the updated document
-    //     const updated=await this.studentModel.findByIdAndUpdate
-    //     (id,{
-    //         name:data.name ?? null,
-    //         age:data.name ?? null,
-    //         email:data.name ?? null,
-    //     },{overwrite:true,new:true})
-    //     return updated;//recomended approach for put to update all terms
-    // }
-
-
-    async updateStudent(id: string, data: Partial<Student>): Promise<Student | null> {
-    // Only update provided fields, and use correct field values
-    const updated = await this.studentModel.findByIdAndUpdate(
-        id,
-        {
-            name: data.name,
-            age: data.age,
-            email: data.email,
-        },
-        { overwrite: true, new: true }
-    ).exec();
-    return updated;
-}
+    async updateStudent(id:string,data:Partial<Student>):
+    Promise<Student | null>{
+        // return this.studentModel.findByIdAndUpdate(id,data,{new:true}).exec(); //new:true will return the updated document
+        const updated=await this.studentModel.findByIdAndUpdate
+        (id,{
+            name:data.name ?? null,
+            age:data.age ?? null,
+            email:data.email ?? null,
+        },{overwrite:true,new:true})
+        return updated;//recomended approach for put to update all terms
+    }
 
     async patchStudent(id:string,data:Partial<Student>):
     Promise<Student | null>{
         return this.studentModel.findByIdAndUpdate(id,{$set:data},{new:true}).exec(); //new:true will return the updated document
+    }
+
+    async deleteStudent(id:string):Promise<Student | null>{
+        return this.studentModel.findByIdAndDelete(id).exec(); //exec will return a promise
     }
 }
